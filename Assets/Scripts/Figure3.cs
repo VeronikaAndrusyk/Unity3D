@@ -14,7 +14,7 @@ public class Figure3 : MonoBehaviour
 
         float x = radius * Mathf.Cos(angle);
         float z = radius * Mathf.Sin(angle);
-
+        
         transform.position = new Vector3(x, transform.position.y, z);
     }
 }
