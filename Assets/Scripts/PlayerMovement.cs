@@ -6,15 +6,15 @@ public class PlayerMovement : MonoBehaviour
     public float sideSpeed = 4f; // Швидкість руху в сторони
     public float jumpForce = 7f; // Сила стрибка
     public float accelerationMultiplier = 2f; // Прискорення
-    public float accelerationTime = 2f; // Час дії прискорення
+    public float accelerationTime = 4f; // Час дії прискорення
 
     private CharacterController controller;
-    private Vector3 moveDirection;
-    private float accelerationTimer = 0f;
+    private Vector3 moveDirection;// вектор для збереження напр руху
+    private float accelerationTimer = 0f; //тайцмер для прискорення 
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();//кер фізикою гравця для move
     }
 
     void Update()
@@ -23,14 +23,14 @@ public class PlayerMovement : MonoBehaviour
         float currentSpeed = speed;
         if (accelerationTimer > 0)
         {
-            currentSpeed *= accelerationMultiplier;
-            accelerationTimer -= Time.deltaTime;
+            currentSpeed *= accelerationMultiplier;//збільшення шв
+            accelerationTimer -= Time.deltaTime;//таймер зменшується
         }
 
         moveDirection.z = currentSpeed;
 
         // Рух вліво-вправо
-        float horizontalInput = Input.GetAxis("Horizontal"); // Стрілки або A/D
+        float horizontalInput = Input.GetAxis("Horizontal"); // -1A 1D
         moveDirection.x = horizontalInput * sideSpeed;
 
         // Стрибок
@@ -40,15 +40,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Гравітація
-        moveDirection.y += Physics.gravity.y * Time.deltaTime;
+        moveDirection.y += Physics.gravity.y * Time.deltaTime;//кожен кадр падає вниз
 
         // Застосування руху
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection * Time.deltaTime);//робить рух плавним
 
         // Прискорення
         if (Input.GetKeyDown(KeyCode.LeftShift) && accelerationTimer <= 0)
         {
-            accelerationTimer = accelerationTime;
+            accelerationTimer = accelerationTime;//зап прискор
         }
     }
 
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         if (hit.gameObject.CompareTag("Obstacle"))
         {
             Debug.Log("Гравець зіткнувся з перешкодою!");
-            speed = 0; // Зупинка при зіткненні
+            //speed = 0; // Зупинка при зіткненні
         }
     }
     void OnTriggerEnter(Collider other)
@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Finish"))
         {
             Debug.Log("Гравець досяг фінішу!");
+            speed = 0;
         }
     }
+
 }

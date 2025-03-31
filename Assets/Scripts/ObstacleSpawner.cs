@@ -5,17 +5,17 @@ public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject obstaclePrefab;
     public Transform player;
-    public float spawnDistance = 10f;
-    public float spawnInterval = 1f;
+    public float spawnDistance = 10f;//відстань перед гравцем
+    public float spawnInterval = 1f;//створенн перешкоди інтервал
 
     void Start()
     {
-        InvokeRepeating("SpawnObstacle", 0f, spawnInterval);
+        InvokeRepeating("SpawnObstacle", 0f, spawnInterval);//викликає функцію одразу а потім через кожен інтервал
     }
 
     void SpawnObstacle()
     {
-        Vector3 spawnPos = new Vector3(Random.Range(-4, 4), 1, player.position.z + spawnDistance);
-        Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
+        Vector3 spawnPos = new Vector3(Random.Range(-4, 4), 1, player.position.z + spawnDistance);//до z гравця додаємо spawnDic
+        Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);//стуорюємо перешкоду, копія об'єкта, розміщення, без обертання
     }
 }
