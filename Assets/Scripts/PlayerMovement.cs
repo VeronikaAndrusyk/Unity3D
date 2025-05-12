@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 7f; // Сила стрибка
     public float accelerationMultiplier = 2f; // Прискорення
     public float accelerationTime = 4f; // Час дії прискорення
+    private bool isGameOver = false; // Чи закінчена гра?
+
 
     private CharacterController controller;
     private Vector3 moveDirection;// вектор для збереження напр руху
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isGameOver) return;
         // Рух вперед
         float currentSpeed = speed;
         if (accelerationTimer > 0)
@@ -56,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("Гравець зіткнувся з перешкодою!");
+            //Debug.Log("Гравець зіткнувся з перешкодою!");
             //speed = 0; // Зупинка при зіткненні
         }
     }
@@ -68,5 +71,14 @@ public class PlayerMovement : MonoBehaviour
             speed = 0;
         }
     }
+
+    public void StopPlayer()
+    {
+        isGameOver = true; // Зупиняємо рух
+        moveDirection = Vector3.zero;
+    }
+
+
+
 
 }

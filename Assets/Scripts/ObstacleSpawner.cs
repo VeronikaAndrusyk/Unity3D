@@ -6,11 +6,11 @@ public class ObstacleSpawner : MonoBehaviour
     public GameObject obstaclePrefab;
     public Transform player;
     public float spawnDistance = 10f;//відстань перед гравцем
-    public float spawnInterval = 1f;//створенн перешкоди інтервал
+    public float spawnInterval = 20f;//створенн перешкоди інтервал
 
     void Start()
     {
-        InvokeRepeating("SpawnObstacle", 0f, spawnInterval);//викликає функцію одразу а потім через кожен інтервал
+        InvokeRepeating("SpawnObstacle", 4f, spawnInterval);//викликає функцію одразу а потім через кожен інтервал
     }
 
     void SpawnObstacle()
